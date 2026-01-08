@@ -1,6 +1,6 @@
 ---
 - name: Create clawdbot system user
-  user:
+  ansible.builtin.user:
     name: clawdbot
     comment: "Clawdbot Service User"
     system: true
@@ -10,6 +10,6 @@
     state: present
 
 - name: Set clawdbot user as primary user for installation
-  set_fact:
+  ansible.builtin.set_fact:
     clawdbot_user: clawdbot
     clawdbot_home: /home/clawdbot

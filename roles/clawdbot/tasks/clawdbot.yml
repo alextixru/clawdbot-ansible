@@ -1,6 +1,6 @@
 ---
 - name: Create Clawdbot directories
-  file:
+  ansible.builtin.file:
     path: "{{ item.path }}"
     state: directory
     owner: "{{ clawdbot_user }}"
@@ -13,7 +13,7 @@
     - { path: "{{ clawdbot_config_dir }}/credentials", mode: '0700' }
 
 - name: Generate Clawdbot configuration files
-  template:
+  ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     owner: "{{ clawdbot_user }}"
@@ -48,7 +48,7 @@
   delay: 3
 
 - name: Generate systemd service file
-  template:
+  ansible.builtin.template:
     src: clawdbot.service.j2
     dest: /etc/systemd/system/clawdbot.service
     owner: root
@@ -56,10 +56,10 @@
     mode: '0644'
 
 - name: Reload systemd daemon
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: true
 
 - name: Enable Clawdbot service
-  systemd:
+  ansible.builtin.systemd:
     name: clawdbot
     enabled: true
