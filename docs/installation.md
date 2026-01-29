@@ -8,7 +8,7 @@ description: Detailed installation and configuration instructions
 ## Quick Install
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/pasogott/clawdbot-ansible/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/alextixru/clawdbot-ansible/main/install.sh | bash
 ```
 
 ## Manual Installation
@@ -23,7 +23,7 @@ sudo apt install -y ansible git
 ### Clone and Run
 
 ```bash
-git clone https://github.com/pasogott/clawdbot-ansible.git
+git clone https://github.com/alextixru/clawdbot-ansible.git
 cd clawdbot-ansible
 
 # Install Ansible collections
@@ -216,10 +216,11 @@ Edit `/opt/clawdbot/docker-compose.yml`:
 
 ```yaml
 ports:
-  - "127.0.0.1:3001:3000"  # Change 3001 to desired port
+  - "127.0.0.1:3001:3000" # Change 3001 to desired port
 ```
 
 Then restart:
+
 ```bash
 sudo systemctl restart clawdbot
 ```

@@ -5,18 +5,21 @@
 ### 🎉 Major Changes
 
 #### Multi-OS Support
+
 - **Added macOS support** alongside Debian/Ubuntu
 - **Homebrew installation** for both Linux and macOS
 - **OS-specific task files** for clean separation
 - **Automatic OS detection** with proper fallback
 
 #### Installation Modes
+
 - **Release Mode** (default): Install via `pnpm install -g clawdbot@latest`
 - **Development Mode**: Clone repo, build from source, symlink binary
 - Switch modes with `-e clawdbot_install_mode=development`
 - Development aliases: `clawdbot-rebuild`, `clawdbot-dev`, `clawdbot-pull`
 
 #### System Improvements
+
 - **apt update & upgrade** runs automatically at start (Debian/Ubuntu)
 - **Homebrew integrated** in PATH for all users
 - **pnpm package manager** used for Clawdbot installation
@@ -24,6 +27,7 @@
 ### 🐛 Bug Fixes
 
 #### Critical Fixes from User Feedback
+
 1. **DBus Session Bus Issues** ✅
    - Fixed: `loginctl enable-linger` now configured automatically
    - Fixed: `XDG_RUNTIME_DIR` set in .bashrc
@@ -49,6 +53,7 @@
 ### 📦 New Files Created
 
 #### OS-Specific Task Files
+
 ```
 roles/clawdbot/tasks/
 ├── system-tools-linux.yml      # apt-based tool installation
@@ -62,6 +67,7 @@ roles/clawdbot/tasks/
 ```
 
 #### Documentation
+
 - `UPGRADE_NOTES.md` - Detailed upgrade information
 - `CHANGELOG.md` - This file
 - `docs/development-mode.md` - Development mode guide
@@ -69,13 +75,13 @@ roles/clawdbot/tasks/
 ### 🔧 Modified Files
 
 #### Core Playbook & Scripts
+
 - **playbook.yml**
   - Added OS detection (is_macos, is_debian, is_linux, is_redhat)
   - Added apt update/upgrade at start
   - Added Homebrew installation
   - Enhanced welcome message with `clawdbot onboard --install-daemon`
   - Removed automatic config.yml creation
-  
 - **install.sh**
   - Added macOS detection
   - Removed Debian-only restriction
@@ -93,9 +99,9 @@ roles/clawdbot/tasks/
   - Added Homebrew to feature list
 
 #### Role Files
+
 - **roles/clawdbot/defaults/main.yml**
   - Added OS-specific variables (homebrew_prefix, package_manager)
-  
 - **roles/clawdbot/tasks/main.yml**
   - No changes (orchestrator)
 
@@ -131,6 +137,7 @@ roles/clawdbot/tasks/
 ### 🚀 Workflow Changes
 
 #### Old Workflow
+
 ```bash
 # Installation
 curl -fsSL https://.../install.sh | bash
@@ -141,6 +148,7 @@ clawdbot login                   # Manual setup
 ```
 
 #### New Workflow - Release Mode (Default)
+
 ```bash
 # Installation
 curl -fsSL https://.../install.sh | bash
@@ -151,9 +159,10 @@ clawdbot onboard --install-daemon # ✅ One command setup!
 ```
 
 #### New Workflow - Development Mode
+
 ```bash
 # Installation with development mode
-git clone https://github.com/pasogott/clawdbot-ansible.git
+git clone https://github.com/alextixru/clawdbot-ansible.git
 cd clawdbot-ansible
 ./run-playbook.sh -e clawdbot_install_mode=development
 
@@ -172,19 +181,23 @@ clawdbot doctor           # Uses new build
 ### 🎯 User Experience Improvements
 
 #### Welcome Message
+
 - Shows environment status (XDG_RUNTIME_DIR, DBUS, Homebrew, Clawdbot version)
 - Recommends `clawdbot onboard --install-daemon` as primary command
 - Provides manual setup steps as alternative
 - Lists useful commands for troubleshooting
 
 #### Environment Configuration
+
 - Homebrew automatically added to PATH
 - pnpm global bin directory configured
 - DBus session bus properly initialized
 - XDG_RUNTIME_DIR set for systemd user services
 
 #### Directory Structure
+
 Ansible creates only structure, no config files:
+
 ```
 ~/.clawdbot/
 ├── sessions/       # Created (empty)
@@ -198,12 +211,14 @@ Ansible creates only structure, no config files:
 ### 🔒 Security Enhancements
 
 #### Systemd Service Hardening
+
 - `ProtectSystem=strict` - System directories read-only
 - `ProtectHome=read-only` - Limited home access
 - `ReadWritePaths=~/.clawdbot` - Only config writable
 - `NoNewPrivileges=true` - No privilege escalation
 
 #### User Isolation
+
 - Dedicated clawdbot system user
 - lingering enabled for systemd user services
 - Proper DBus session isolation
@@ -211,15 +226,15 @@ Ansible creates only structure, no config files:
 
 ### 📊 Platform Support Matrix
 
-| Feature | Debian/Ubuntu | macOS | Status |
-|---------|--------------|-------|--------|
-| Base Installation | ✅ | ✅ | Tested |
-| Homebrew | ✅ | ✅ | Working |
-| Docker | Docker CE | Docker Desktop | Working |
-| Firewall | UFW | Application FW | Working |
-| systemd | ✅ | ❌ | Linux only |
-| DBus Setup | ✅ | N/A | Linux only |
-| pnpm + Clawdbot | ✅ | ✅ | Working |
+| Feature           | Debian/Ubuntu | macOS          | Status     |
+| ----------------- | ------------- | -------------- | ---------- |
+| Base Installation | ✅            | ✅             | Tested     |
+| Homebrew          | ✅            | ✅             | Working    |
+| Docker            | Docker CE     | Docker Desktop | Working    |
+| Firewall          | UFW           | Application FW | Working    |
+| systemd           | ✅            | ❌             | Linux only |
+| DBus Setup        | ✅            | N/A            | Linux only |
+| pnpm + Clawdbot   | ✅            | ✅             | Working    |
 
 ### ⚠️ Breaking Changes
 
@@ -241,9 +256,11 @@ Ansible creates only structure, no config files:
 ### 🔄 Migration Guide
 
 #### For Fresh Installations
+
 Just run the new installer - everything works out of the box!
 
 #### For Existing Installations
+
 ```bash
 # 1. Add environment variables
 echo 'export XDG_RUNTIME_DIR=/run/user/$(id -u)' >> ~/.bashrc
@@ -272,12 +289,14 @@ pnpm install -g clawdbot@latest
 ### 🐛 Known Issues
 
 #### macOS Limitations
+
 - systemd not available (Linux feature)
 - Some Linux-specific tools not installed
 - Firewall configuration limited
 - **Recommendation**: Use for development, not production
 
 #### Future Enhancements
+
 - [ ] launchd support for macOS service management
 - [ ] Full pf firewall configuration for macOS
 - [ ] macOS-specific user management

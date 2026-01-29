@@ -1,7 +1,7 @@
 # Clawdbot Ansible Installer
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Lint](https://github.com/pasogott/clawdbot-ansible/actions/workflows/lint.yml/badge.svg)](https://github.com/pasogott/clawdbot-ansible/actions/workflows/lint.yml)
+[![Lint](https://github.com/alextixru/clawdbot-ansible/actions/workflows/lint.yml/badge.svg)](https://github.com/alextixru/clawdbot-ansible/actions/workflows/lint.yml)
 [![Ansible](https://img.shields.io/badge/Ansible-2.14+-blue.svg)](https://www.ansible.com/)
 [![Multi-OS](https://img.shields.io/badge/OS-Debian%20%7C%20Ubuntu%20%7C%20macOS-orange.svg)](https://www.debian.org/)
 
@@ -25,7 +25,7 @@ Automated, hardened installation of [Clawdbot](https://github.com/clawdbot/clawd
 Install the latest stable version from npm:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/pasogott/clawdbot-ansible/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/alextixru/clawdbot-ansible/main/install.sh | bash
 ```
 
 ### Development Mode
@@ -34,7 +34,7 @@ Install from source for development or testing:
 
 ```bash
 # Clone the installer
-git clone https://github.com/pasogott/clawdbot-ansible.git
+git clone https://github.com/alextixru/clawdbot-ansible.git
 cd clawdbot-ansible
 
 # Install in development mode
@@ -65,6 +65,7 @@ clawdbot onboard --install-daemon
 ```
 
 This will:
+
 - Guide you through the setup wizard
 - Configure your messaging provider (WhatsApp/Telegram/Signal)
 - Install and start the daemon service
@@ -93,12 +94,14 @@ clawdbot logs
 ## Installation Modes
 
 ### Release Mode (Default)
+
 - Installs via `pnpm install -g clawdbot@latest`
 - Gets latest stable version from npm registry
 - Automatic updates via `pnpm install -g clawdbot@latest`
 - **Recommended for production**
 
 ### Development Mode
+
 - Clones from `https://github.com/clawdbot/clawdbot.git`
 - Builds from source with `pnpm build`
 - Symlinks binary to `~/.local/bin/clawdbot`
@@ -132,11 +135,13 @@ Verify: `nmap -p- YOUR_SERVER_IP` should show only port 22 open.
 ## Requirements
 
 ### Linux (Debian/Ubuntu)
+
 - Debian 11+ or Ubuntu 20.04+
 - Root/sudo access
 - Internet connection
 
 ### macOS
+
 - macOS 11 (Big Sur) or later
 - Homebrew will be installed automatically
 - Admin/sudo access
@@ -145,6 +150,7 @@ Verify: `nmap -p- YOUR_SERVER_IP` should show only port 22 open.
 ## What Gets Installed
 
 ### Common (All OS)
+
 - Homebrew package manager
 - Node.js 22.x + pnpm
 - Clawdbot via `pnpm install -g clawdbot@latest`
@@ -152,12 +158,14 @@ Verify: `nmap -p- YOUR_SERVER_IP` should show only port 22 open.
 - Git, zsh, oh-my-zsh
 
 ### Linux-Specific
+
 - Docker CE + Compose V2
 - UFW firewall (configured)
 - Tailscale VPN
 - systemd service
 
 ### macOS-Specific
+
 - Docker Desktop (via Homebrew Cask)
 - Application Firewall
 - Tailscale app
@@ -171,7 +179,7 @@ Verify: `nmap -p- YOUR_SERVER_IP` should show only port 22 open.
 sudo apt update && sudo apt install -y ansible git
 
 # Clone repository
-git clone https://github.com/pasogott/clawdbot-ansible.git
+git clone https://github.com/alextixru/clawdbot-ansible.git
 cd clawdbot-ansible
 
 # Install Ansible collections
@@ -194,6 +202,7 @@ ansible-playbook playbook.yml --ask-become-pass -e clawdbot_install_mode=develop
 ```
 
 This will:
+
 - Clone clawdbot repo to `~/code/clawdbot`
 - Run `pnpm install` and `pnpm build`
 - Symlink binary to `~/.local/bin/clawdbot`
@@ -237,16 +246,16 @@ Edit `roles/clawdbot/defaults/main.yml` before running the playbook.
 
 ### Available Variables
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `clawdbot_user` | `clawdbot` | System user name |
-| `clawdbot_home` | `/home/clawdbot` | User home directory |
-| `clawdbot_install_mode` | `release` | `release` or `development` |
-| `clawdbot_ssh_keys` | `[]` | List of SSH public keys |
-| `clawdbot_repo_url` | `https://github.com/clawdbot/clawdbot.git` | Git repository (dev mode) |
-| `clawdbot_repo_branch` | `main` | Git branch (dev mode) |
-| `tailscale_authkey` | `""` | Tailscale auth key for auto-connect |
-| `nodejs_version` | `22.x` | Node.js version to install |
+| Variable                | Default                                    | Description                         |
+| ----------------------- | ------------------------------------------ | ----------------------------------- |
+| `clawdbot_user`         | `clawdbot`                                 | System user name                    |
+| `clawdbot_home`         | `/home/clawdbot`                           | User home directory                 |
+| `clawdbot_install_mode` | `release`                                  | `release` or `development`          |
+| `clawdbot_ssh_keys`     | `[]`                                       | List of SSH public keys             |
+| `clawdbot_repo_url`     | `https://github.com/clawdbot/clawdbot.git` | Git repository (dev mode)           |
+| `clawdbot_repo_branch`  | `main`                                     | Git branch (dev mode)               |
+| `tailscale_authkey`     | `""`                                       | Tailscale auth key for auto-connect |
+| `nodejs_version`        | `22.x`                                     | Node.js version to install          |
 
 See [`roles/clawdbot/defaults/main.yml`](roles/clawdbot/defaults/main.yml) for the complete list.
 
@@ -282,4 +291,4 @@ MIT - see [LICENSE](LICENSE)
 ## Support
 
 - Clawdbot: https://github.com/clawdbot/clawdbot
-- This installer: https://github.com/pasogott/clawdbot-ansible/issues
+- This installer: https://github.com/alextixru/clawdbot-ansible/issues

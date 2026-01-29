@@ -6,15 +6,15 @@ This guide explains how to install Clawdbot in **development mode**, where the a
 
 ### Release Mode vs Development Mode
 
-| Feature | Release Mode | Development Mode |
-|---------|-------------|------------------|
-| Source | npm registry | GitHub repository |
-| Installation | `pnpm install -g clawdbot@latest` | `git clone` + `pnpm build` |
-| Location | `~/.local/share/pnpm/global/...` | `~/code/clawdbot/` |
-| Binary | Global pnpm package | Symlink to `bin/clawdbot.js` |
-| Updates | `pnpm install -g clawdbot@latest` | `git pull` + `pnpm build` |
-| Use Case | Production, stable deployments | Development, testing, debugging |
-| Recommended For | End users | Developers, contributors |
+| Feature         | Release Mode                      | Development Mode                |
+| --------------- | --------------------------------- | ------------------------------- |
+| Source          | npm registry                      | GitHub repository               |
+| Installation    | `pnpm install -g clawdbot@latest` | `git clone` + `pnpm build`      |
+| Location        | `~/.local/share/pnpm/global/...`  | `~/code/clawdbot/`              |
+| Binary          | Global pnpm package               | Symlink to `bin/clawdbot.js`    |
+| Updates         | `pnpm install -g clawdbot@latest` | `git pull` + `pnpm build`       |
+| Use Case        | Production, stable deployments    | Development, testing, debugging |
+| Recommended For | End users                         | Developers, contributors        |
 
 ## Installation
 
@@ -22,7 +22,7 @@ This guide explains how to install Clawdbot in **development mode**, where the a
 
 ```bash
 # Clone the ansible installer
-git clone https://github.com/pasogott/clawdbot-ansible.git
+git clone https://github.com/alextixru/clawdbot-ansible.git
 cd clawdbot-ansible
 
 # Run in development mode
@@ -36,7 +36,7 @@ cd clawdbot-ansible
 sudo apt update && sudo apt install -y ansible git
 
 # Clone repository
-git clone https://github.com/pasogott/clawdbot-ansible.git
+git clone https://github.com/alextixru/clawdbot-ansible.git
 cd clawdbot-ansible
 
 # Install collections
@@ -76,28 +76,33 @@ ansible-playbook playbook.yml --ask-become-pass -e clawdbot_install_mode=develop
 The Ansible playbook performs these steps:
 
 1. **Create `~/code` directory**
+
    ```bash
    mkdir -p ~/code
    ```
 
 2. **Clone repository**
+
    ```bash
    cd ~/code
    git clone https://github.com/clawdbot/clawdbot.git
    ```
 
 3. **Install dependencies**
+
    ```bash
    cd clawdbot
    pnpm install
    ```
 
 4. **Build from source**
+
    ```bash
    pnpm build
    ```
 
 5. **Create symlink**
+
    ```bash
    ln -sf ~/code/clawdbot/bin/clawdbot.js ~/.local/bin/clawdbot
    chmod +x ~/code/clawdbot/bin/clawdbot.js
@@ -175,11 +180,11 @@ pnpm build
 
 The following aliases are added to `.bashrc`:
 
-| Alias | Command | Purpose |
-|-------|---------|---------|
-| `clawdbot-dev` | `cd ~/code/clawdbot` | Navigate to repo |
-| `clawdbot-rebuild` | `cd ~/code/clawdbot && pnpm build` | Rebuild after changes |
-| `clawdbot-pull` | `cd ~/code/clawdbot && git pull && pnpm install && pnpm build` | Update and rebuild |
+| Alias              | Command                                                        | Purpose               |
+| ------------------ | -------------------------------------------------------------- | --------------------- |
+| `clawdbot-dev`     | `cd ~/code/clawdbot`                                           | Navigate to repo      |
+| `clawdbot-rebuild` | `cd ~/code/clawdbot && pnpm build`                             | Rebuild after changes |
+| `clawdbot-pull`    | `cd ~/code/clawdbot && git pull && pnpm install && pnpm build` | Update and rebuild    |
 
 Plus an environment variable:
 
@@ -297,12 +302,14 @@ pnpm build
 ### Build Time
 
 First build takes longer (~1-2 minutes depending on system):
+
 ```bash
 pnpm install    # Downloads dependencies
 pnpm build      # Compiles TypeScript
 ```
 
 Subsequent rebuilds are faster (~10-30 seconds):
+
 ```bash
 pnpm build      # Only recompiles changed files
 ```
@@ -357,16 +364,19 @@ clawdbot doctor
 ### Development Workflow
 
 1. ✅ **Always rebuild after code changes**
+
    ```bash
    clawdbot-rebuild
    ```
 
 2. ✅ **Test changes before committing**
+
    ```bash
    pnpm build && clawdbot doctor
    ```
 
 3. ✅ **Keep dependencies updated**
+
    ```bash
    pnpm update
    pnpm build
