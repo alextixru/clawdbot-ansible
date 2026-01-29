@@ -76,17 +76,18 @@
         NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
       args:
         creates: "{{ '/opt/homebrew/bin/brew' if is_macos else '/home/linuxbrew/.linuxbrew/bin/brew' }}"
+      become: false
       when: not homebrew_check.stat.exists
       register: homebrew_install
 
     - name: Add Homebrew to PATH for current session (Linux)
       ansible.builtin.set_fact:
-        ansible_env: "{{ ansible_env | combine({'PATH': '/home/linuxbrew/.linuxbrew/bin:' + ansible_env.PATH}) }}"
+        ansible_env: "{{ ansible_env | default({}) | combine({'PATH': '/home/linuxbrew/.linuxbrew/bin:' + lookup('env', 'PATH')}, recursive=true) }}"
       when: is_linux and not is_macos
 
     - name: Add Homebrew to PATH for current session (macOS)
       ansible.builtin.set_fact:
-        ansible_env: "{{ ansible_env | combine({'PATH': '/opt/homebrew/bin:' + ansible_env.PATH}) }}"
+        ansible_env: "{{ ansible_env | default({}) | combine({'PATH': '/opt/homebrew/bin:' + lookup('env', 'PATH')}, recursive=true) }}"
       when: is_macos
 
     - name: Display Homebrew installation status

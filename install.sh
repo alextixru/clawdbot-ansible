@@ -74,10 +74,10 @@ echo -e "${GREEN}[2/5] Downloading playbook...${NC}"
 # Download the playbook and role files
 cd "$TEMP_DIR"
 
-# For simplicity, we'll clone the entire repo
-echo "Cloning repository..."
-git clone https://github.com/pasogott/clawdbot-ansible.git
-cd clawdbot-ansible
+# Use local files instead of cloning (to keep our fixes)
+echo "Using local repository files..."
+cp -r /home/aid/clawdbot-ansible/* .
+cd clawdbot-ansible 2>/dev/null || true
 
 echo -e "${GREEN}✓ Playbook downloaded${NC}"
 
