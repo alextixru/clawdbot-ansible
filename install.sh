@@ -12,7 +12,7 @@ if [ -z "$COLORTERM" ]; then
     export COLORTERM=truecolor
 fi
 
-REPO_URL="https://raw.githubusercontent.com/pasogott/clawdbot-ansible/main"
+REPO_URL="https://raw.githubusercontent.com/alextixru/clawdbot-ansible/main"
 PLAYBOOK_URL="${REPO_URL}/playbook.yml"
 TEMP_DIR=$(mktemp -d)
 
@@ -74,10 +74,13 @@ echo -e "${GREEN}[2/5] Downloading playbook...${NC}"
 # Download the playbook and role files
 cd "$TEMP_DIR"
 
-# Use local files instead of cloning (to keep our fixes)
-echo "Using local repository files..."
-cp -r /home/aid/clawdbot-ansible/* .
-cd clawdbot-ansible 2>/dev/null || true
+# Clone the repository to get all files (playbook, roles, etc.)
+echo "Cloning repository from GitHub..."
+if ! command -v git &> /dev/null; then
+    echo -e "${YELLOW}Git not found. Installing...${NC}"
+    $SUDO apt-get update -qq && $SUDO apt-get install -y git
+fi
+git clone https://github.com/alextixru/clawdbot-ansible.git .
 
 echo -e "${GREEN}✓ Playbook downloaded${NC}"
 
